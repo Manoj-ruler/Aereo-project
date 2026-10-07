@@ -1,0 +1,20 @@
+services:
+  api:
+    build: .
+    image: geospatial-measurement-api
+    ports:
+      - "8000:8000"
+    environment:
+      APP_ENV: production
+      MAX_UPLOAD_SIZE_MB: ${MAX_UPLOAD_SIZE_MB:-25}
+      MAX_ZIP_FILES: ${MAX_ZIP_FILES:-100}
+      MAX_ZIP_UNCOMPRESSED_MB: ${MAX_ZIP_UNCOMPRESSED_MB:-200}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      - api-data:/app/data
+      - api-storage:/app/storage
+    restart: unless-stopped
+
+volumes:
+  api-data:
+  api-storage:
